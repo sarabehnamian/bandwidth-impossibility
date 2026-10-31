@@ -75,7 +75,7 @@ def log10_protocols(n, V, m, topology, R):
 
 
 # ---------------------------------------------------------------- encoder
-def build(n, V, m, k, N, R):
+def build(n, V, m, k, N, R, value_sym=False):
     pool = IDPool()
     cnf = CNF()
 
@@ -102,6 +102,16 @@ def build(n, V, m, k, N, R):
     # (receivers can relabel too) lets us fix s^1_j(0) = 0.  Sound and complete.
     for j in range(n):
         cnf.append([s(1, j, 0, (), 0)])
+    # Optional: the task is invariant under permutations of V.  Permute V so
+    # that agent 0's round-1 fibres are contiguous intervals, then relabel agent
+    # 0's round-1 symbols in order of first appearance: s^1_0 becomes a
+    # non-decreasing map with steps of 0 or 1.  (The other fixings above are
+    # message relabellings applied afterwards, so they remain compatible.)
+    if value_sym:
+        for x in range(V - 1):
+            for c in range(m):
+                nxt = [s(1, 0, x + 1, (), c)] + ([s(1, 0, x + 1, (), c + 1)] if c + 1 < m else [])
+                cnf.append([-s(1, 0, x, (), c)] + nxt)
     # Later rounds: agent j's round-r alphabet may be relabelled separately for
     # each history h, provided every out-neighbour i of j can reconstruct h
     # (every in-neighbour l of j is i itself or an in-neighbour of i).  Then we
@@ -176,12 +186,13 @@ def extract_and_verify(model, n, V, m, k, N, R, s, d):
     return S, D
 
 
-def solvable(n, V, m, k, topology='complete', R=1, verify=True, return_protocol=False):
+def solvable(n, V, m, k, topology='complete', R=1, verify=True, return_protocol=False,
+             value_sym=False):
     if k >= n or V <= k:
         # trivial: everyone outputs own input (at most min(n,|V|) <= k values)
         return (True, None) if return_protocol else True
     N = in_neighbours(topology, n)
-    pool, cnf, s, d = build(n, V, m, k, N, R)
+    pool, cnf, s, d = build(n, V, m, k, N, R, value_sym)
     with Cadical153(bootstrap_with=cnf.clauses) as S:
         res = S.solve()
         model = S.get_model() if res else None
@@ -195,4 +206,5 @@ if __name__ == '__main__':
     n, V, m, k = map(int, sys.argv[1:5])
     topo = sys.argv[5] if len(sys.argv) > 5 else 'complete'
     R = int(sys.argv[6]) if len(sys.argv) > 6 else 1
-    print(solvable(n, V, m, k, topo, R))
+    vs = len(sys.argv) > 7 and sys.argv[7] == 'valuesym'
+    print(solvable(n, V, m, k, topo, R, value_sym=vs))

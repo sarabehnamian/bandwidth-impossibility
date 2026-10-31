@@ -1,0 +1,22 @@
+Running 8 cells: n=4, |X_i|=4
+
+topology   |X|  R  B task       result       unlim-BW  counting  joint-fail
+--------------------------------------------------------------------------------------
+complete     4  1  1 kset(3)    SOLVABLE     solvable  silent           n/a
+complete     4  1  2 kset(3)    SOLVABLE     solvable  silent           n/a
+star         4  1  1 kset(3)    impossible   solvable  silent           n/a
+star         4  1  2 kset(3)    SOLVABLE     solvable  silent           n/a
+chain        4  1  1 kset(3)    impossible   solvable  silent           n/a
+chain        4  1  2 kset(3)    SOLVABLE     solvable  silent           n/a
+ring         4  1  1 kset(3)    SOLVABLE     solvable  silent           n/a
+ring         4  1  2 kset(3)    SOLVABLE     solvable  silent           n/a
+--------------------------------------------------------------------------------------
+* 'none found' means the search was SAMPLED, not exhaustive.
+  Sampled runs can never prove impossibility. Ignore them for the
+  main claim, or rerun that cell with a larger --budget.
+
+INTERESTING cells (impossible, exhaustively verified, counting silent): 0
+  (none found in this sweep -- try larger --xsize, more --rounds,
+   or different topologies)
+
+Full results written to 03_four_agents/results.json

@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\begin{document}
+
+% ======================= paste from here =======================
+\section{Bandwidth threshold for $k$-set agreement}
+
+\paragraph{Setting.} There are $n$ agents on a directed graph $G$. Agent $i$ holds an input $x_i\in V$. In one round it broadcasts a single message $s_i(x_i)\in[m]$ to its out-neighbours, and then decides $d_i\bigl(x_i,(s_j(x_j))_{j\in N^-(i)}\bigr)\in V$. A protocol solves \emph{$k$-set agreement} if, on every input vector, (validity) every output is some agent's input, and (agreement) at most $k$ distinct values are output. We assume $n\ge k+1$; for $k\ge n$ every agent can output its own input.
+
+\begin{theorem}[Lower bound, any topology]\label{thm:kset-lower}
+If $|V|\ge m+k$, then no one-round protocol solves $k$-set agreement on any directed graph $G$.
+\end{theorem}
+
+\begin{theorem}[Upper bound, complete graph]\label{thm:kset-upper}
+If $|V|\le m+k-1$, then there is a one-round protocol that solves $k$-set agreement on the complete graph.
+\end{theorem}
+
+\begin{corollary}\label{cor:kset-exact}
+On the complete graph with one round, $k$-set agreement is solvable if and only if $|V|\le m+k-1$. For $k=1$ this is Theorem~8.1.
+\end{corollary}
+
+\begin{lemma}[Product fibres]\label{lem:product}
+For each agent $i$, let $C_i\subseteq V$ be a fibre of $s_i$ (a set on which $s_i$ is constant) with $|C_i|\ge 2$. On every input vector in $P=C_1\times\dots\times C_n$, every agent outputs its own input.
+\end{lemma}
+
+\begin{proof}
+On $P$ every message is constant, so agent $i$'s decision is a function $f_i(x_i)$ of its own input alone. Suppose $f_i(c)=v\ne c$ for some $c\in C_i$. Because $|C_j|\ge 2$, we can choose $x_j\in C_j\setminus\{v\}$ for every $j\ne i$. Then the vector with $x_i=c$ and these $x_j$ lies in $P$ and contains no agent holding $v$, so the output $v$ violates validity. Hence $f_i(c)=c$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:kset-lower}]
+Fix agent $i$. Let $t_i$ be the number of fibres of $s_i$ with at least two elements, and let $U_i$ be their union. There are at most $m$ fibres in total and at most $m-t_i$ of them are singletons, so
+\[
+|U_i|\;\ge\;|V|-(m-t_i)\;\ge\;k+t_i .
+\]
+In particular $t_i\ge 1$.
+
+Choose fibres greedily for agents $1,\dots,k+1$. Suppose agents $1,\dots,i-1$ already have fibres $C_1,\dots,C_{i-1}$ with distinct representatives $r_1,\dots,r_{i-1}$. If every non-singleton fibre of $s_i$ were contained in $\{r_1,\dots,r_{i-1}\}$, then $|U_i|\le i-1\le k$, which contradicts $|U_i|\ge k+t_i\ge k+1$. So agent $i$ has a fibre $C_i$ with $|C_i|\ge2$ that contains a new representative $r_i\notin\{r_1,\dots,r_{i-1}\}$. For each agent $j>k+1$, take any fibre $C_j$ with $|C_j|\ge 2$, which exists because $t_j\ge 1$.
+
+Now take the input vector with $x_i=r_i$ for $i\le k+1$ and any $x_j\in C_j$ for $j>k+1$. It lies in $P=\prod_i C_i$, so by Lemma~\ref{lem:product} every agent outputs its own input. That gives at least $k+1$ distinct outputs, a contradiction. The argument never uses the edges of $G$, so it holds for every topology.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:kset-upper}]
+Write $V=\{0,\dots,|V|-1\}$. Let $L=\{0,\dots,m-2\}$ be the set of \emph{low} values and $H=V\setminus L$ the set of \emph{high} values, so $|H|\le k$. Each agent sends $s(x)=x$ if $x\in L$ and $s(x)=m-1$ otherwise. Agent $i$ forms the set of low values it knows: its own input if that is low, together with every low value it decodes from a message. If this set is non-empty, agent $i$ outputs its minimum; otherwise it outputs $x_i$.
+
+Suppose some input is low. On the complete graph every agent knows every low input, either as its own or by decoding, so all agents compute the same non-empty set. They therefore output the same value, and that value is an input. Otherwise all inputs lie in $H$ and each agent outputs its own input. These outputs are valid, and there are at most $|H|\le k$ distinct ones. (If $m=1$, then $L=\emptyset$ and $|V|\le k$.)
+\end{proof}
+
+\begin{remark}
+Both directions use only fibres of the message maps; no homology enters at $R=1$, for consensus or for $k$-set agreement. Below the threshold, the topology does matter. For example, with $n=3$, $k=2$, $m=2$ and $|V|=3$, the task is solvable on the complete graph and on the directed ring but impossible on the star and on the chain (exhaustive search, report~03). If agents may send different messages on different edges, the same proof gives the lower bound with $m$ replaced by $m^{d^+_i}$, the size of agent $i$'s combined out-message alphabet.
+\end{remark}
+% ======================= paste to here =======================
+
+\end{document}

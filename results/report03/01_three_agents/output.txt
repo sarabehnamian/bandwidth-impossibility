@@ -1,0 +1,46 @@
+Running 32 cells: n=3, |X_i|=3
+
+topology   |X|  R  B task       result       unlim-BW  counting  joint-fail
+--------------------------------------------------------------------------------------
+complete     3  1  1 consensus  impossible   solvable  silent           n/a
+complete     3  1  1 kset(2)    SOLVABLE     solvable  silent           n/a
+complete     3  1  1 parity     SOLVABLE     solvable  silent             -
+complete     3  1  1 max        impossible   solvable  silent             0
+complete     3  1  2 consensus  SOLVABLE     solvable  silent           n/a
+complete     3  1  2 kset(2)    SOLVABLE     solvable  silent           n/a
+complete     3  1  2 parity     SOLVABLE     solvable  silent             -
+complete     3  1  2 max        SOLVABLE     solvable  silent             -
+star         3  1  1 consensus  impossible   IMPOSS    silent           n/a
+star         3  1  1 kset(2)    impossible   solvable  silent           n/a
+star         3  1  1 parity     impossible   IMPOSS    silent             0
+star         3  1  1 max        impossible   IMPOSS    silent             0
+star         3  1  2 consensus  impossible   IMPOSS    silent           n/a
+star         3  1  2 kset(2)    SOLVABLE     solvable  silent           n/a
+star         3  1  2 parity     impossible   IMPOSS    silent             0
+star         3  1  2 max        impossible   IMPOSS    silent             0
+chain        3  1  1 consensus  impossible   IMPOSS    silent           n/a
+chain        3  1  1 kset(2)    impossible   solvable  silent           n/a
+chain        3  1  1 parity     impossible   IMPOSS    silent             0
+chain        3  1  1 max        impossible   IMPOSS    silent             0
+chain        3  1  2 consensus  impossible   IMPOSS    silent           n/a
+chain        3  1  2 kset(2)    SOLVABLE     solvable  silent           n/a
+chain        3  1  2 parity     impossible   IMPOSS    silent             0
+chain        3  1  2 max        impossible   IMPOSS    silent             0
+ring         3  1  1 consensus  impossible   IMPOSS    silent           n/a
+ring         3  1  1 kset(2)    SOLVABLE     solvable  silent           n/a
+ring         3  1  1 parity     impossible   IMPOSS    silent             0
+ring         3  1  1 max        impossible   IMPOSS    silent             0
+ring         3  1  2 consensus  impossible   IMPOSS    silent           n/a
+ring         3  1  2 kset(2)    SOLVABLE     solvable  silent           n/a
+ring         3  1  2 parity     impossible   IMPOSS    silent             0
+ring         3  1  2 max        impossible   IMPOSS    silent             0
+--------------------------------------------------------------------------------------
+* 'none found' means the search was SAMPLED, not exhaustive.
+  Sampled runs can never prove impossibility. Ignore them for the
+  main claim, or rerun that cell with a larger --budget.
+
+INTERESTING cells (impossible, exhaustively verified, counting silent): 0
+  (none found in this sweep -- try larger --xsize, more --rounds,
+   or different topologies)
+
+Full results written to 01_three_agents/results.json

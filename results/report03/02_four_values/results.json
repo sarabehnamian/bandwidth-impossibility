@@ -1,0 +1,689 @@
+[
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "complete",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 16,
+      "1": 16,
+      "2": 16
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        0,
+        1,
+        2
+      ],
+      "2": [
+        0,
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "complete",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "kset",
+    "k": 2,
+    "solvable": false,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 16,
+      "1": 16,
+      "2": 16
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        0,
+        1,
+        2
+      ],
+      "2": [
+        0,
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "complete",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "consensus",
+    "k": null,
+    "solvable": true,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 15,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 64,
+      "1": 64,
+      "2": 64
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        0,
+        1,
+        2
+      ],
+      "2": [
+        0,
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false,
+    "complex": {
+      "n_vertices": 36,
+      "simplex_counts": {
+        "0": 36,
+        "1": 96,
+        "2": 64
+      },
+      "betti": {
+        "0": 4,
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "connected": false
+    }
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "complete",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "kset",
+    "k": 2,
+    "solvable": true,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 15,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 64,
+      "1": 64,
+      "2": 64
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        0,
+        1,
+        2
+      ],
+      "2": [
+        0,
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false,
+    "complex": {
+      "n_vertices": 36,
+      "simplex_counts": {
+        "0": 36,
+        "1": 96,
+        "2": 64
+      },
+      "betti": {
+        "0": 4,
+        "1": 0,
+        "2": 0,
+        "3": 0
+      },
+      "connected": false
+    }
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "star",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": false,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 16,
+      "1": 4,
+      "2": 4
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        1
+      ],
+      "2": [
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "star",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "kset",
+    "k": 2,
+    "solvable": false,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 16,
+      "1": 4,
+      "2": 4
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        1
+      ],
+      "2": [
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "star",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": false,
+    "search_mode": "exhaustive",
+    "protocols_checked": 3375,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 64,
+      "1": 4,
+      "2": 4
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        1
+      ],
+      "2": [
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "star",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "kset",
+    "k": 2,
+    "solvable": true,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 15,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 64,
+      "1": 4,
+      "2": 4
+    },
+    "reachability": {
+      "0": [
+        0,
+        1,
+        2
+      ],
+      "1": [
+        1
+      ],
+      "2": [
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false,
+    "complex": {
+      "n_vertices": 24,
+      "simplex_counts": {
+        "0": 24,
+        "1": 96,
+        "2": 64
+      },
+      "betti": {
+        "0": 1,
+        "1": 9,
+        "2": 0,
+        "3": 0
+      },
+      "connected": true
+    }
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "chain",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": false,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 4,
+      "1": 8,
+      "2": 8
+    },
+    "reachability": {
+      "0": [
+        0
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "chain",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "kset",
+    "k": 2,
+    "solvable": false,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 4,
+      "1": 8,
+      "2": 8
+    },
+    "reachability": {
+      "0": [
+        0
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "chain",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": false,
+    "search_mode": "exhaustive",
+    "protocols_checked": 3375,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 4,
+      "1": 16,
+      "2": 16
+    },
+    "reachability": {
+      "0": [
+        0
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "chain",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "kset",
+    "k": 2,
+    "solvable": true,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 211,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 4,
+      "1": 16,
+      "2": 16
+    },
+    "reachability": {
+      "0": [
+        0
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false,
+    "complex": {
+      "n_vertices": 24,
+      "simplex_counts": {
+        "0": 24,
+        "1": 96,
+        "2": 64
+      },
+      "betti": {
+        "0": 1,
+        "1": 9,
+        "2": 0,
+        "3": 0
+      },
+      "connected": true
+    }
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "ring",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": false,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 8,
+      "1": 8,
+      "2": 8
+    },
+    "reachability": {
+      "0": [
+        0,
+        2
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "ring",
+    "rounds": 1,
+    "bandwidth": 1,
+    "n_msgs": 2,
+    "task": "kset",
+    "k": 2,
+    "solvable": false,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 512,
+    "protocol_space_estimate": 512,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 8,
+      "1": 8,
+      "2": 8
+    },
+    "reachability": {
+      "0": [
+        0,
+        2
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "ring",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "consensus",
+    "k": null,
+    "solvable": false,
+    "solvable_full_information": false,
+    "search_mode": "exhaustive",
+    "protocols_checked": 3375,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 16,
+      "1": 16,
+      "2": 16
+    },
+    "reachability": {
+      "0": [
+        0,
+        2
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false
+  },
+  {
+    "n": 3,
+    "x_size": 4,
+    "topology": "ring",
+    "rounds": 1,
+    "bandwidth": 2,
+    "n_msgs": 4,
+    "task": "kset",
+    "k": 2,
+    "solvable": true,
+    "solvable_full_information": true,
+    "search_mode": "exhaustive",
+    "protocols_checked": 15,
+    "protocol_space_estimate": 3375,
+    "n_answers": null,
+    "counting_fires": false,
+    "rho": {
+      "0": 16,
+      "1": 16,
+      "2": 16
+    },
+    "reachability": {
+      "0": [
+        0,
+        2
+      ],
+      "1": [
+        0,
+        1
+      ],
+      "2": [
+        1,
+        2
+      ]
+    },
+    "classifier_applicable": false,
+    "INTERESTING": false,
+    "complex": {
+      "n_vertices": 24,
+      "simplex_counts": {
+        "0": 24,
+        "1": 96,
+        "2": 64
+      },
+      "betti": {
+        "0": 1,
+        "1": 9,
+        "2": 0,
+        "3": 0
+      },
+      "connected": true
+    }
+  }
+]

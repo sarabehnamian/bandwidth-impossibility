@@ -1,0 +1,26 @@
+Running 12 cells: n=3, |X_i|=2
+
+topology   |X|  R  B task       result       unlim-BW  counting  joint-fail
+--------------------------------------------------------------------------------------
+star         2  2  1 consensus  SOLVABLE     solvable  silent           n/a
+star         2  2  1 kset(2)    SOLVABLE     solvable  silent           n/a
+star         2  2  1 parity     SOLVABLE     solvable  silent             -
+star         2  2  1 max        SOLVABLE     solvable  silent             -
+chain        2  2  1 consensus  SOLVABLE     solvable  silent           n/a
+chain        2  2  1 kset(2)    SOLVABLE     solvable  silent           n/a
+chain        2  2  1 parity     impossible   IMPOSS    silent             0
+chain        2  2  1 max        impossible   IMPOSS    silent             0
+ring         2  2  1 consensus  SOLVABLE     solvable  silent           n/a
+ring         2  2  1 kset(2)    SOLVABLE     solvable  silent           n/a
+ring         2  2  1 parity     SOLVABLE     solvable  silent             -
+ring         2  2  1 max        SOLVABLE     solvable  silent             -
+--------------------------------------------------------------------------------------
+* 'none found' means the search was SAMPLED, not exhaustive.
+  Sampled runs can never prove impossibility. Ignore them for the
+  main claim, or rerun that cell with a larger --budget.
+
+INTERESTING cells (impossible, exhaustively verified, counting silent): 0
+  (none found in this sweep -- try larger --xsize, more --rounds,
+   or different topologies)
+
+Full results written to 04_two_rounds/results.json

@@ -1,0 +1,45 @@
+
+1. Partition enumeration
+  ok m=2, max 2 blocks gives 2 partitions
+  ok m=3, max 2 blocks gives 4 partitions
+  ok m=4, max 2 blocks gives 8 partitions
+  ok counting helper agrees with enumeration
+
+2. Partition search == full-function search
+  ok complete R=1 B=1 |X_i|=2 consensus: partitions == all functions   [partitions=True, all=True]
+  ok complete R=1 B=1 |X_i|=3 consensus: partitions == all functions   [partitions=False, all=False]
+  ok ring R=1 B=1 |X_i|=2 parity: partitions == all functions   [partitions=False, all=False]
+  ok ring R=1 B=1 |X_i|=3 max: partitions == all functions   [partitions=False, all=False]
+  ok chain R=1 B=1 |X_i|=3 kset2: partitions == all functions   [partitions=False, all=False]
+
+3. Cases with a known answer
+  ok complete, B large enough, parity is solvable
+  ok complete, B large enough, max is solvable
+  ok complete, B large enough, consensus is solvable
+  ok complete: 3-set agreement is trivially solvable
+  ok star: 3-set agreement is trivially solvable
+  ok chain: 3-set agreement is trivially solvable
+  ok ring: 3-set agreement is trivially solvable
+  ok chain of 4, R=1: agent 3 cannot reach agent 0   [reach[3]=[2, 3]]
+  ok chain of 4, R=3: agent 3 CAN reach agent 0   [reach[3]=[0, 1, 2, 3]]
+
+4. Resolving power (Theorem 2)
+  ok complete n=3 R=1 B=1: rho = 3 * 2^2 = 12   [12]
+  ok star n=3 R=2: peripheral hears hub exactly once
+  ok counting bound never contradicts the search
+
+5. Homology
+  ok hollow triangle has b_0 = 1   [{0: 1, 1: 1, 2: 0}]
+  ok hollow triangle has b_1 = 1   [{0: 1, 1: 1, 2: 0}]
+  ok filled triangle has b_1 = 0   [{0: 1, 1: 0, 2: 0}]
+  ok two disjoint points give b_0 = 2   [{0: 2, 1: 0}]
+
+6. Full-information control
+  ok complete R=1: full-info view of agent 0 is the whole input
+  ok chain R=1: agent 0's full-info view sees only its own input
+
+============================================================
+27 passed, 0 failed
+============================================================
+
+All good. The machinery can be trusted.

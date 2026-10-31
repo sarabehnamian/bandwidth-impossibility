@@ -4,6 +4,9 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \begin{document}
 
 % ======================= paste from here =======================
@@ -50,8 +53,152 @@ Suppose some input is low. On the complete graph every agent knows every low inp
 \end{proof}
 
 \begin{remark}
-Both directions use only fibres of the message maps; no homology enters at $R=1$, for consensus or for $k$-set agreement. Below the threshold, the topology does matter. For example, with $n=3$, $k=2$, $m=2$ and $|V|=3$, the task is solvable on the complete graph and on the directed ring but impossible on the star and on the chain (exhaustive search, report~03). If agents may send different messages on different edges, the same proof gives the lower bound with $m$ replaced by $m^{d^+_i}$, the size of agent $i$'s combined out-message alphabet.
+Both directions use only fibres of the message maps; no homology enters at $R=1$, for consensus or for $k$-set agreement. Below the threshold, the topology does matter. For example, with $n=3$, $k=2$, $m=2$ and $|V|=3$, the task is solvable on the complete graph and on the directed ring but impossible on the chain and on the \emph{in-star} (leaves send to the hub and hear nothing), by exhaustive search (report~03, confirmed by SAT in Section~\ref{sec:kset-computations}). On the \emph{bidirectional} star it is solvable: see Observation~\ref{obs:star-protocol}. Report~03's one-round ``star'' is the in-star: its recorded reachability sets are $\{0,1,2\}$ for the hub and $\{i\}$ for each leaf $i$. If agents may send different messages on different edges, the same proof gives the lower bound with $m$ replaced by $m^{d^+_i}$, the size of agent $i$'s combined out-message alphabet.
 \end{remark}
+
+\subsection{Other topologies and two rounds: exhaustive computations}\label{sec:kset-computations}
+
+\paragraph{Method.} For a digraph $G$, $R\ge1$ rounds, $m$, $k$ and $|V|$ we encode the existence of a protocol as a CNF formula and decide it with the complete SAT solver CaDiCaL~1.5.3 (via PySAT). In round $r$ agent $j$ broadcasts $s^r_j(x_j,h_j)\in[m]$, where $h_j$ is everything $j$ received in rounds $1,\dots,r-1$, so later messages are fully adaptive. After round $R$ agent $i$ decides $d_i(x_i,h_i)\in V$. The variables are the complete tables of all $s^r_j$ and $d_i$. Auxiliary variables record which symbol each agent sends on each input vector, and which values are output on each input vector. They appear only as heads of Horn implications, so the formula is satisfiable if and only if a protocol exists. The only symmetry breaking is that, for each sending agent and each history, the symbol sent on input $0$ is fixed to $0$. This is sound because receivers can undo any relabelling: in round~1 always, and in later rounds whenever every receiver knows the sender's history, which always holds on the complete graph. An UNSAT answer is therefore an exhaustive impossibility proof over the whole protocol space. Every SAT answer was checked again by extracting the protocol and simulating it on all $|V|^n$ inputs. On the complete graph the encoder reproduces the original one-round script, and it agrees with all 46 consensus and $k$-set cells of report~03 when report~03's one-round star is read as the in-star (see the remark above). Raw data and the scripts are in \texttt{results/} and \texttt{sat/}.
+
+\paragraph{Topologies.} \emph{complete}; \emph{star}: hub $0$ and leaves, with edges in both directions; \emph{in-star}: leaves $\to$ hub only; \emph{out-star}: hub $\to$ leaves only; \emph{chain}: $0\to1\to\dots\to n-1$; \emph{ring}: directed cycle $i-1\to i$.
+
+\subsubsection{One round}
+
+For each topology, $n\in\{3,4\}$, $k\in\{1,\dots,n-1\}$ and $m\in\{2,3\}$, we decided solvability for \emph{every} $|V|\in\{k+1,\dots,m+k\}$. Values $|V|\le k$ are trivially solvable, and $|V|=m+k$ is impossible by Theorem~\ref{thm:kset-lower}; the SAT runs confirm this as well. That is $150$ SAT instances. The largest protocol space has about $10^{516}$ protocols (complete graph, $n=4$, $k=3$, $m=3$, $|V|=6$). In every case the solvable values form an initial segment $\{1,\dots,T\}$, as they must, since restricting the inputs preserves solvability. Table~\ref{tab:r1} lists the threshold $T$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ccc|c|cccccc}
+\hline
+$n$ & $k$ & $m$ & $m+k-1$ & complete & star & in-star & out-star & chain & ring\\
+\hline
+3&1&2&2& 2&2&1&2&1&1\\
+3&1&3&3& 3&3&1&3&1&1\\
+3&2&2&3& 3&3&2&2&2&3\\
+3&2&3&4& 4&4&3&3&3&4\\
+\hline
+4&1&2&2& 2&2&1&2&1&1\\
+4&1&3&3& 3&3&1&3&1&1\\
+4&2&2&3& 3&2&2&2&2&2\\
+4&2&3&4& 4&3&2&3&3&3\\
+4&3&2&4& 4&4&3&3&3&4\\
+4&3&3&5& 5&5&4&3&4&5\\
+\hline
+\end{tabular}
+\caption{Exact one-round thresholds: $k$-set agreement is solvable iff $|V|\le T$. Every entry comes from exhaustive SAT over all $|V|\le m+k$.}\label{tab:r1}
+\end{table}
+
+\begin{observation}[Table~\ref{tab:r1}]\label{obs:r1}
+On the complete graph every threshold equals $m+k-1$, in agreement with Corollary~\ref{cor:kset-exact}. Every other topology attains $m+k-1$ only in some cells. The star attains it for $k\in\{1,n-1\}$; the ring for $k=n-1$; the out-star only for $k=1$; the chain and the in-star never. For $n=4$ and $k=2$, every non-complete topology falls strictly below $m+k-1$.
+\end{observation}
+
+Some entries of Table~\ref{tab:r1} are explained by the following two results, which we prove.
+
+\begin{lemma}[Deaf agents]\label{lem:deaf}
+Let $|V|\ge2$ and $n\ge2$. If agent $i$ has no in-neighbours, then in every one-round protocol that satisfies validity, agent $i$ outputs its own input.
+\end{lemma}
+\begin{proof}
+Agent $i$'s decision is a function $f(x_i)$ of its own input. If $f(c)=v\neq c$, give every other agent an input in $V\setminus\{v\}$, which is non-empty. Then no agent holds $v$, so outputting $v$ violates validity.
+\end{proof}
+
+\begin{corollary}\label{cor:deaf}
+If $G$ has at least $k+1$ agents of in-degree $0$, then the one-round threshold for $k$-set agreement is exactly $k$, for every $m$.
+\end{corollary}
+\begin{proof}
+If $|V|\le k$, every agent outputs its own input. If $|V|\ge k+1$, give $k+1$ deaf agents distinct inputs. By Lemma~\ref{lem:deaf} they output $k+1$ distinct values.
+\end{proof}
+This explains the in-star entries with $k<n-1$.
+
+\begin{theorem}[One-round consensus on a digraph]\label{thm:cons-digraph}
+Let $n\ge2$ and $|V|\ge2$. One-round consensus is solvable on $G$ if and only if (i) some agent $u$ is an in-neighbour of every other agent, and (ii) $|V|\le m$. So the threshold is $m$ if $G$ has such a ``universal broadcaster'', and $1$ otherwise.
+\end{theorem}
+\begin{proof}
+($\Leftarrow$) Agent $u$ sends $x_u$, which is possible since $|V|\le m$, and every agent outputs $x_u$.
+
+($\Rightarrow$) Condition (ii) is Theorem~\ref{thm:kset-lower} with $k=1$. For (i), let $S_i=\{i\}\cup N^-(i)$. Agent $i$'s output depends only on $x_{S_i}$. Since all agents agree on every input, there is one function $D:V^n\to V$ with $D(x)=d_i(\dots)$ for every $i$. So, for every $i$, $D(x)$ depends only on $x_{S_i}$.
+
+Next we show that if a function on a product set depends only on the coordinates in $A$, and also only on those in $B$, then it depends only on those in $A\cap B$. Let $x,y$ agree on $A\cap B$. Let $z$ agree with $x$ on $A$ and with $y$ off $A$. Then $D(z)=D(x)$. Also $z$ and $y$ agree on $(A\cap B)\cup A^c\supseteq B$, so $D(z)=D(y)$.
+
+By induction, $D$ depends only on $x_S$, where $S=\bigcap_i S_i$. If $S=\emptyset$, then $D$ is constant. But validity forces $D(0,\dots,0)=0$ and $D(1,\dots,1)=1$, a contradiction. So $S$ contains some $u$, and $u\in S_i$ for all $i$ means $u\in N^-(i)$ for all $i\neq u$.
+\end{proof}
+
+The $k=1$ rows of Table~\ref{tab:r1} agree with Theorem~\ref{thm:cons-digraph}. The complete graph, the star and the out-star have a universal broadcaster (any agent, or the hub). The in-star, the chain and the ring with $n\ge3$ do not.
+
+\begin{observation}[Explicit protocol]\label{obs:star-protocol}
+On the bidirectional star with $n=3$, $k=2$, $m=2$ and $V=\{0,1,2\}$, the following protocol solves $2$-set agreement. It was extracted from the SAT model and checked on all $27$ inputs. Every agent sends the bit $[x=2]$. The hub outputs $2$ if it holds or hears a $2$, and otherwise outputs its own input. A leaf with input $0$ outputs $2$ if the hub's bit is $1$ and $0$ otherwise. Any other leaf outputs its own input.
+\end{observation}
+
+The remaining patterns in Table~\ref{tab:r1} are unproved.
+
+\begin{conjecture}[Set agreement, $k=n-1$]\label{conj:setagree}
+For $k=n-1$, the one-round threshold on a digraph $G$ is $m+n-2$ (that is, it meets the bound of Theorem~\ref{thm:kset-lower}) if and only if every agent has an in-neighbour. If some agent has in-degree $0$, the threshold is at most $m+n-3$.
+\end{conjecture}
+\noindent\emph{Evidence:} the $k=n-1$ rows of Table~\ref{tab:r1}, i.e.\ six topologies, $n\in\{3,4\}$ and $m\in\{2,3\}$, giving $24$ cells. The complete graph, the star and the ring have no deaf agent and reach $m+n-2$. The chain, the in-star and the out-star each have a deaf agent and stay at or below $m+n-3$. The chain and the in-star equal $m+n-3$ in all four cells; the out-star equals it in three of the four.
+
+\begin{conjecture}[Out-star]\label{conj:outstar}
+On the out-star with $n\ge3$ agents, the one-round threshold for $k$-set agreement is $\max(m,k)$.
+\end{conjecture}
+\noindent\emph{Evidence:} $10$ cells, namely $n\in\{3,4\}$, $1\le k\le n-1$ and $m\in\{2,3\}$. The case $k=1$ is Theorem~\ref{thm:cons-digraph}.
+
+\begin{conjecture}[Chain]\label{conj:chain}
+On the directed chain with $n\ge3$ agents and $2\le k\le n-1$, the one-round threshold is $m+k-2$.
+\end{conjecture}
+\noindent\emph{Evidence:} $6$ cells, namely $(n,k)\in\{(3,2),(4,2),(4,3)\}$ and $m\in\{2,3\}$. For $k=1$ the threshold is $1$ by Theorem~\ref{thm:cons-digraph}.
+
+\subsubsection{Two rounds}
+
+We now allow $R=2$ with fully adaptive round-2 messages and fix the complete graph with $n=3$. For consensus the threshold is exactly $m^2$. Our search found no advantage from adaptivity. This is in fact a theorem for every $R$, every $n\ge 2$, and every topology.
+
+\begin{theorem}[$R$-round consensus]\label{thm:cons-R}
+Let $n\ge2$ and $R\ge1$.
+\begin{enumerate}
+\item[(a)] On every digraph, if $|V|\ge m^R+1$, then no $R$-round protocol (adaptive or not) solves consensus.
+\item[(b)] If some agent $u$ is an in-neighbour of every other agent (for example, on the complete graph), then consensus is solvable in $R$ rounds whenever $|V|\le m^R$.
+\end{enumerate}
+Hence the $R$-round consensus threshold on the complete graph is exactly $m^R$.
+\end{theorem}
+\begin{proof}
+(b) Agent $u$ sends the $R$ base-$m$ digits of $x_u$, one per round, and every agent outputs $x_u$.
+
+(a) We build sets $C^{(0)}_i\supseteq C^{(1)}_i\supseteq\dots\supseteq C^{(R)}_i$ for each agent $i$. They satisfy $|C^{(r)}_i|\ge m^{R-r}+1$, and on $P_r=\prod_j C^{(r)}_j$ every message of rounds $1,\dots,r$ is constant. Start with $C^{(0)}_i=V$. Suppose the sets for $r-1$ are built. On $P_{r-1}$ all messages before round $r$ are constant, so each agent's history before round $r$ is constant. Hence on $C^{(r-1)}_i$ the round-$r$ message of agent $i$ is a function of $x_i$ alone, with at most $m$ values. Because $|C^{(r-1)}_i|\ge m^{R-r+1}+1>m\cdot m^{R-r}$, one of its fibres $C^{(r)}_i$ has at least $m^{R-r}+1$ elements. Restricting each coordinate to $C^{(r)}_j$ keeps all earlier messages constant, which completes the induction.
+
+On $P_R$ every message in every round is constant, and $|C^{(R)}_i|\ge2$ for all $i$. The argument of Lemma~\ref{lem:product} applies unchanged: each decision is a function of the agent's own input, and validity forces it to be the identity. Choose $x_1\in C^{(R)}_1$ and $x_2\in C^{(R)}_2\setminus\{x_1\}$, and the other coordinates arbitrarily in $P_R$. Then agents $1$ and $2$ output different values, so consensus fails.
+\end{proof}
+
+\begin{remark}
+The proof of Theorem~\ref{thm:cons-digraph} carries over verbatim to $R$ rounds once $S_i$ is replaced by the set of agents that have a directed path of length at most $R$ to $i$. So $R$-round consensus with $|V|\ge2$ needs an agent that reaches everyone within $R$ hops. When that agent reaches others only through relays, Theorem~\ref{thm:cons-R}(b) does not apply, and the threshold may be below $m^R$.
+\end{remark}
+
+\begin{proposition}[$R$-round $k$-set, complete graph, upper bound]\label{prop:kset-R-upper}
+On the complete graph, $k$-set agreement is solvable in $R$ rounds whenever $|V|\le m^R+k-1$.
+\end{proposition}
+\begin{proof}
+Run the protocol of Theorem~\ref{thm:kset-upper} with alphabet size $M=m^R$. Each agent transmits its symbol $s(x)\in[M]$ non-adaptively, as $R$ base-$m$ digits over $R$ rounds.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cc|c|c|c|c}
+\hline
+task & $m$ & $|V|$ checked & threshold & $m^2+k-1$ & largest protocol space\\
+\hline
+consensus ($k=1$) & 2 & $2,\dots,5$ & 4 & 4 & $10^{190}$\\
+consensus ($k=1$) & 3 & $2,\dots,10$ & M3T & 9 & $10^{M3S}$\\
+$2$-set ($k=2$)   & 2 & $3,\dots,6$ & 5 & 5 & $10^{251}$\\
+\hline
+\end{tabular}
+\caption{Two rounds, complete graph, $n=3$, fully adaptive round-2 messages. Exhaustive SAT for every listed $|V|$.}\label{tab:r2}
+\end{table}
+
+\begin{observation}[Table~\ref{tab:r2}]\label{obs:r2}
+For $n=3$ on the complete graph with $R=2$, the consensus threshold is $4=2^2$ for $m=2$ and M3T for $m=3$. Both values agree with Theorem~\ref{thm:cons-R}, which they check independently. For $2$-set agreement with $m=2$ the threshold is $5=m^2+k-1$, which matches Proposition~\ref{prop:kset-R-upper}.
+\end{observation}
+
+\begin{conjecture}[$R$-round $k$-set agreement]\label{conj:kset-R}
+On the complete graph, the $R$-round threshold for $k$-set agreement is exactly $m^R+k-1$. Equivalently, adaptivity gives no advantage over a single round with alphabet $[m]^R$.
+\end{conjecture}
+\noindent\emph{Evidence:} Theorem~\ref{thm:cons-R} ($k=1$, all $R$), Corollary~\ref{cor:kset-exact} ($R=1$, all $k$), and the cell $n=3$, $k=2$, $m=2$, $R=2$ in Table~\ref{tab:r2}. The proof of Theorem~\ref{thm:kset-lower} does not extend directly. Its greedy choice of fibres with distinct representatives uses fibres of $s_i$ that do not depend on the other agents. With adaptivity, agent $i$'s round-2 fibres depend on the round-1 fibres chosen for everyone else.
+
 % ======================= paste to here =======================
 
 \end{document}

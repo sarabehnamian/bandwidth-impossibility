@@ -1,0 +1,9 @@
+topology,n,R,k,m,V,solvable,seconds,log10_protocols
+complete,3,2,1,2,2,True,0.0,37.9
+complete,3,2,1,2,3,True,0.0,82.3
+complete,3,2,1,2,4,True,0.0,133.7
+complete,3,2,1,2,5,False,1.8,190.3
+complete,3,2,2,2,3,True,0.0,82.3
+complete,3,2,2,2,4,True,0.0,133.7
+complete,3,2,2,2,5,True,0.2,190.3
+complete,3,2,2,2,6,False,5.8,251.2

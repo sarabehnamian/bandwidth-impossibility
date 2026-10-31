@@ -183,15 +183,15 @@ Run the protocol of Theorem~\ref{thm:kset-upper} with alphabet size $M=m^R$. Eac
 task & $m$ & $|V|$ checked & threshold & $m^2+k-1$ & largest protocol space\\
 \hline
 consensus ($k=1$) & 2 & $2,\dots,5$ & 4 & 4 & $10^{190}$\\
-consensus ($k=1$) & 3 & $2,\dots,10$ & M3T & 9 & $10^{M3S}$\\
+consensus ($k=1$) & 3 & $2,\dots,9$ & $\ge 9$\,$^{*}$ & 9 & $10^{2216}$\\
 $2$-set ($k=2$)   & 2 & $3,\dots,6$ & 5 & 5 & $10^{251}$\\
 \hline
 \end{tabular}
-\caption{Two rounds, complete graph, $n=3$, fully adaptive round-2 messages. Exhaustive SAT for every listed $|V|$.}\label{tab:r2}
+\caption{Two rounds, complete graph, $n=3$, fully adaptive round-2 messages. Exhaustive SAT for every listed $|V|$. $^{*}$The SAT instance for $|V|=10$ ($\approx7\cdot10^4$ variables, $2.6\cdot10^6$ clauses, protocol space $\approx10^{2573}$) did not finish. We ran CaDiCaL and Glucose for more than an hour each, and also a cube-and-conquer split over agent~0's round-1 map, which did not finish either. Impossibility at $|V|=10$, and hence the exact threshold $9$, comes from Theorem~\ref{thm:cons-R}(a), not from the computation.}\label{tab:r2}
 \end{table}
 
 \begin{observation}[Table~\ref{tab:r2}]\label{obs:r2}
-For $n=3$ on the complete graph with $R=2$, the consensus threshold is $4=2^2$ for $m=2$ and M3T for $m=3$. Both values agree with Theorem~\ref{thm:cons-R}, which they check independently. For $2$-set agreement with $m=2$ the threshold is $5=m^2+k-1$, which matches Proposition~\ref{prop:kset-R-upper}.
+For $n=3$ on the complete graph with $R=2$, the consensus threshold is $4=2^2$ for $m=2$. The search covered every $|V|\le5$, so this independently confirms both parts of Theorem~\ref{thm:cons-R}. For $m=3$ the search shows that consensus is solvable for every $|V|\le9=3^2$, which confirms part~(b). The impossibility side at $|V|=10$ rests on the proof of part~(a) alone, because the SAT run did not finish (see Table~\ref{tab:r2}). For $2$-set agreement with $m=2$ the threshold is $5=m^2+k-1$, which matches Proposition~\ref{prop:kset-R-upper}.
 \end{observation}
 
 \begin{conjecture}[$R$-round $k$-set agreement]\label{conj:kset-R}

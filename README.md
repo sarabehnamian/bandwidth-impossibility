@@ -75,7 +75,7 @@ only.
 | task | m | threshold | m^2+k-1 |
 |---|---|---|---|
 | consensus | 2 | 4 | 4 |
-| consensus | 3 | M3T | 9 |
+| consensus | 3 | 9 (SAT: solvable for all \|V\| <= 9; \|V\| = 10 did not finish, so impossibility there rests on the theorem) | 9 |
 | 2-set | 2 | 5 | 5 |
 
 **The consensus threshold equals m^2.** Adaptivity in round 2 does not help.

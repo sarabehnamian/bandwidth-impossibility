@@ -5,6 +5,8 @@ for consensus as a margin check).
 Writes results/thresholds_r2.csv and results/thresholds_r2.md.
 Usage: python3 thresholds_r2.py            (all cells)
        python3 thresholds_r2.py m k        (one (m,k) pair)
+       python3 thresholds_r2.py m k vmax   (only |V| <= vmax; threshold is then
+                                            reported as a lower bound if vmax is solvable)
 """
 import csv
 import os
@@ -19,9 +21,9 @@ CELLS = [(2, 1), (3, 1), (2, 2)]   # (m, k); consensus for m=2,3 + one 2-set cel
 N, R, TOPO = 3, 2, 'complete'
 
 
-def run(m, k):
+def run(m, k, vmax=None):
     rows = []
-    for V in range(k + 1, m ** R + k + 1):
+    for V in range(k + 1, (vmax or m ** R + k) + 1):
         t0 = time.time()
         r = solvable(N, V, m, k, TOPO, R=R)
         dt = time.time() - t0
@@ -42,8 +44,9 @@ def main():
         old = [r for r in csv.DictReader(open(path))
                if (int(r['m']), int(r['k'])) not in cells]
     new = []
+    vmax = int(sys.argv[3]) if len(sys.argv) > 3 else None
     for m, k in cells:
-        new += run(m, k)
+        new += run(m, k, vmax)
     allrows = old + [{kk: str(v) for kk, v in r.items()} for r in new]
     allrows.sort(key=lambda r: (int(r['k']), int(r['m']), int(r['V'])))
     with open(path, 'w', newline='') as f:
@@ -57,6 +60,8 @@ def main():
                if (int(r['m']), int(r['k'])) == (m, k)}
         T = max([k] + [V for V, s in sol.items() if s])
         assert all(sol[V] == (V <= T) for V in sol), sol
+        if sol[max(sol)]:          # largest checked |V| solvable: only a lower bound
+            T = f'>={T}'
         summ.append(dict(topology=TOPO, n=N, R=R, k=k, m=m, threshold=T,
                          m_squared_plus_k_minus_1=m * m + k - 1,
                          checked_V=f'{min(sol)}..{max(sol)}'))
